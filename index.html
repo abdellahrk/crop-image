@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="croppie.css" />
+    <style>
+        button {
+            margin-left: 50%;
+            margin-bottom: 3%;
+            margin-top: 2%;
+            color: white;
+            background-color: teal;
+        }
+
+        .result {
+            align-content: center;
+        }
+
+        .wrap {
+            text-align: center;
+        }
+
+        .result {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <img height="100" width="100" src="me.jpg" id="me" alt="">
+        <button onclick="cropImage()">crop</button>
+    </div>
+    
+    <div class="wrap">
+        <div class="result">
+            <h3>Cropped</h3>
+            <img  id="res" height="300" width="300">
+        </div>
+    </div>
+    
+    
+    <script src="croppie.js"></script>
+
+    <script>
+        let image = document.getElementById('me');
+        var crop = new Croppie(image, {
+            viewport: { width: 300, height: 350 },
+            boundary: { width: 350, height: 350 },
+            enableResize: true,
+            enableZooming: true,
+            enableOrientation: true    
+        });
+
+        function cropImage() {
+            
+            crop.result('blob').then(function(blob){
+                let im = document.getElementById('res');
+                im.src = window.URL.createObjectURL(blob)
+                
+            }).catch(function() {
+                console.log('error')
+            })
+        };
+        
+    </script>
+</body>
+</html>
